@@ -1,28 +1,24 @@
-from collections import deque
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         size=len(nums)
-        start=end=0
-        res=[]
+        start=0
+        end=0
         dq=deque()
+        res=[]
 
-        while(end<size):
-            while dq and nums[dq[-1]] < nums[end]:
+        while end<size:
+            while  len(dq)>0 and dq[-1]<nums[end]:
                 dq.pop()
-        
-            dq.append(end)
+            dq.append(nums[end])
 
-        #Until window size not reached
             if end-start+1<k:
                 end+=1
-        
-        #Window size reached we need to calculate answer
             elif end-start+1==k:
-                res.append(nums[dq[0]])
+                res.append(dq[0])
 
-                if dq[0]==start:
+                if dq[0]==nums[start]:
                     dq.popleft()
-                end+=1
                 start+=1
-        
+                end+=1
+
         return res
