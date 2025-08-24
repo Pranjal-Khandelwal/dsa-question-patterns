@@ -1,22 +1,25 @@
 class Solution:
-    def maxSubarraySum(self, arr, k):
-        size=len(arr)
-        total_sum=0
-        max_sum=0
-        
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        size=len(nums)
         start=0
         end=0
-        
-        while(end<size):
-            total_sum+=arr[end]
-            
+        dq=deque()
+        res=[]
+
+        while end<size:
+            while  len(dq)>0 and dq[-1]<nums[end]:
+                dq.pop()
+                
+            dq.append(nums[end])
+
             if end-start+1<k:
                 end+=1
-            
             elif end-start+1==k:
-                max_sum=max(max_sum,total_sum)
-                total_sum-=arr[start]
-                end+=1
+                res.append(dq[0])
+
+                if dq[0]==nums[start]:
+                    dq.popleft()
                 start+=1
-        
-        return max_sum
+                end+=1
+
+        return res
