@@ -1,30 +1,32 @@
-#User function Template for python3
+from collections import deque
+
 class Solution:
     def firstNegInt(self, arr, k): 
         size = len(arr)
-        my_list = []  # will hold indices of negative numbers
+        my_deque = deque()  # will hold indices of negative numbers
         res = []
         
         start = 0
         end = 0
         
         while end < size:
-            # if current element is negative, add its index to list
+            # if current element is negative, add its index
             if arr[end] < 0:
-                my_list.append(end)
+                my_deque.append(end)
             
+            # check window size
             if end - start + 1 < k:
                 end += 1
             elif end - start + 1 == k:
                 # append first negative in window
-                if len(my_list) == 0:
+                if len(my_deque) == 0:
                     res.append(0)
                 else:
-                    res.append(arr[my_list[0]])
+                    res.append(arr[my_deque[0]])
                 
                 # remove element going out of window
-                if my_list and my_list[0] == start:
-                    my_list.pop(0)
+                if my_deque and my_deque[0] == start:
+                    my_deque.popleft()
                 
                 start += 1
                 end += 1
