@@ -13,7 +13,6 @@ class Solution:
             if arr[end] < 0:
                 my_list.append(end)
             
-            # check window size
             if end - start + 1 < k:
                 end += 1
             elif end - start + 1 == k:
