@@ -1,4 +1,4 @@
-from collections import deque 
+from collections import deque
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         size=len(nums)
